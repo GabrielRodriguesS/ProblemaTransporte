@@ -28,7 +28,7 @@ public class TelaDescricaoProblema extends javax.swing.JFrame {
         setTitle("Problema do Transporte");
         setFont(new java.awt.Font("Adobe Arabic", 0, 18)); // NOI18N
 
-        imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/op1.jpg"))); // NOI18N
+        imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/todasRotas.jpg"))); // NOI18N
 
         descricaoProblema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         descricaoProblema.setText("<html>   <font size=\"6\"> <b><p align =\"center\"> - Problema do Transporte -  <p align =\"center\">Método de Aproximação de Vogel</b> </font>   </br> \n<font size=\"5\"> <br> A forja de armaduras \"Kovir&Poviss\" possui uma instalação matriz e uma filial. A primeira, F1, tem capacidade de produção total de <b>1800 </b> armaduras. Enquanto a filial, F2, um pouco menor, pode fornecer <b>700 </b> armaduras. </br> \n<br> <br> Kovir&Poviss distribui suas finais peças por 5 reinos da região: <b>R1, R2, R3, R4, e R5 </b>. A demanda de armaduras para os 5 reinos é fixa e distribuída conforme indicado abaixo, respectivamente: <b> 890, 105, 600, 405, 500</b>. </br> \n<br><br>  Os cavalos e embarcações disponíveis para fazer o transporte das mercadorias atendem a todas as rotas, entretanto, cada uma possui um custo variado. O custo de transporte deve ser fornecido. </br> \n<br> <br> O objetivo é atender a todos os reinos pelo menor custo de viagem. </br> \n");

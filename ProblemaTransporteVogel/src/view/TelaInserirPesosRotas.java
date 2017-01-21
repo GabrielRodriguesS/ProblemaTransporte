@@ -3,6 +3,7 @@ package view;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Icon;
+import model.CalculosVogel;
 import model.Reino;
 
 /**
@@ -20,8 +21,11 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
     private final Reino reinoCinco;
 
     static {
-        mapaCaminhoIcones.put("Reino 1", "/resources/op1.jpg");
-        mapaCaminhoIcones.put("Reino 2", "/resources/mapa.png");
+        mapaCaminhoIcones.put("Reino 1", "/resources/R1rota.jpg");
+        mapaCaminhoIcones.put("Reino 2", "/resources/R2rota.jpg");
+        mapaCaminhoIcones.put("Reino 3", "/resources/R3rota.jpg");
+        mapaCaminhoIcones.put("Reino 4", "/resources/R4rota.jpg");
+        mapaCaminhoIcones.put("Reino 5", "/resources/R5rota.jpg");
     }
 
     private Reino getReino(String itemSelecionado) {
@@ -46,7 +50,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         this.reinoTres = new Reino();
         this.reinoQuatro = new Reino();
         this.reinoCinco = new Reino();
-        mapaReinos.put("Reino 1", this.reinoUm);
+        mapaReinos.put("Reino 1", this.reinoUm); //não inseri isso estatico, pois as variaveis são variaveis dã
         mapaReinos.put("Reino 2", this.reinoDois);
         mapaReinos.put("Reino 3", this.reinoTres);
         mapaReinos.put("Reino 4", this.reinoQuatro);
@@ -79,9 +83,9 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         titulo.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        titulo.setText("Informe o Custo das Rotas");
+        titulo.setText("Informe o Custo das Rotas e a Demanda ");
 
-        imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/op1.jpg"))); // NOI18N
+        imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/R1rota.jpg"))); // NOI18N
 
         destino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Reino 1", "Reino 2", "Reino 3", "Reino 4", "Reino 5" }));
         destino.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +111,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         lembrete.setText("<html> <p>*Lembre-se não faz sentido</p> <p>encomendar meia armadura,</p><p>logo a demanda é um inteiro</p>  </html>");
 
         calcular.setText("Calcular");
+        calcular.setEnabled(false);
         calcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calcularActionPerformed(evt);
@@ -120,39 +125,39 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(196, 196, 196)
-                        .addComponent(titulo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(imagem)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelDestino, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(destino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFabrica2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(rotaFabricaUm, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(rotaFabricaDois, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cadastroValorRota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(demandaReino, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(lembrete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calcular, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDemanda, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap()
+                .addComponent(imagem)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDestino, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(destino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelFabrica2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(rotaFabricaUm, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(rotaFabricaDois, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cadastroValorRota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(demandaReino, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(lembrete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calcular, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelDemanda, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(titulo)
+                .addGap(140, 140, 140))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titulo)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(imagem)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
+                        .addGap(18, 18, 18)
+                        .addComponent(imagem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addComponent(labelDestino)
                         .addGap(13, 13, 13)
                         .addComponent(destino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,17 +169,17 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
                         .addComponent(labelFabrica2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rotaFabricaDois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(labelDemanda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(demandaReino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cadastroValorRota)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(lembrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(26, 26, 26)
                         .addComponent(calcular)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,7 +189,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         String nomeReino = (String) this.destino.getSelectedItem();
 
         this.limpaInputs();
-        // this.alteraImagemMapa(reino);
+        this.alteraImagemMapa(nomeReino);
     }//GEN-LAST:event_destinoActionPerformed
 
     private void cadastroValorRotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroValorRotaActionPerformed
@@ -200,7 +205,20 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
             Reino value = entrySet.getValue();
             dummy += value.getDemanda();
         }
+        chamadaMetodoVogel(dummy);
     }//GEN-LAST:event_calcularActionPerformed
+
+    private void chamadaMetodoVogel(Integer dummy) {
+        CalculosVogel calculo = new CalculosVogel();
+        if (dummy > 2500) {
+            calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
+        }
+        if (dummy < 2500) {
+            calculo.transformaMapaEmArrayComDummyDemanda(mapaReinos);
+        } else {
+            calculo.transformaMapaEmArraySemDummy(mapaReinos);
+        }
+    }
 
     private void setPesosRotas(Reino reino) {
         reino.setRotaFabricaUm(Integer.parseInt(this.rotaFabricaUm.getText()));

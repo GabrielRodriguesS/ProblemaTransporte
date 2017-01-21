@@ -9,15 +9,28 @@ package model;
  *
  * @author Gabriel
  */
-public class Reino {
+public class Reino implements Comparable<Reino> {
 
     private Integer rotaFabricaUm;
     private Integer rotaFabricaDois;
     private Integer demanda;
+    private Integer penalidade;
+    private static final Integer dummy = 0;
 
-    
+    public Integer getPenalidade() {
+        return penalidade;
+    }
+
+    public void setPenalidade(Integer penalidade) {
+        this.penalidade = penalidade;
+    }
+
     public Integer getRotaFabricaUm() {
         return rotaFabricaUm;
+    }
+
+    public static Integer getDummy() {
+        return dummy;
     }
 
     public void setRotaFabricaUm(Integer rotaFabricaUm) {
@@ -38,6 +51,17 @@ public class Reino {
 
     public void setDemanda(Integer demanda) {
         this.demanda = demanda;
+    }
+
+    @Override
+    public int compareTo(Reino o) {
+        if (this.getPenalidade() < o.getPenalidade()) {
+            return -1;
+        }
+        if (this.getPenalidade() > o.getPenalidade()) {
+            return 1;
+        }
+        return 0;
     }
 
 }

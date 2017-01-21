@@ -65,7 +65,7 @@
     <Component class="javax.swing.JLabel" name="imagem">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/op1.jpg"/>
+          <Image iconType="3" name="/resources/todasRotas.jpg"/>
         </Property>
       </Properties>
     </Component>
