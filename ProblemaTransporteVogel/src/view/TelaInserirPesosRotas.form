@@ -147,6 +147,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastroValorRotaActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cadastroValorRotaKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="rotaFabricaDois">
@@ -161,10 +162,10 @@
     <Component class="javax.swing.JButton" name="calcular">
       <Properties>
         <Property name="text" type="java.lang.String" value="Calcular"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calcularActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="calcularKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="demandaReino">

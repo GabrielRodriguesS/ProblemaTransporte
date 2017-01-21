@@ -15,10 +15,19 @@ public class Reino implements Comparable<Reino> {
     private Integer rotaFabricaDois;
     private Integer demanda;
     private Integer penalidade;
-    private static final Integer dummy = 0;
+    private Integer quantidadeTransportada;
+    private final Integer dummy = 0;
 
     public Integer getPenalidade() {
         return penalidade;
+    }
+
+    public Integer getQuantidadeTransportada() {
+        return quantidadeTransportada;
+    }
+
+    public void setQuantidadeTransportada(Integer quantidadeTransportada) {
+        this.quantidadeTransportada = quantidadeTransportada;
     }
 
     public void setPenalidade(Integer penalidade) {
@@ -29,7 +38,7 @@ public class Reino implements Comparable<Reino> {
         return rotaFabricaUm;
     }
 
-    public static Integer getDummy() {
+    public Integer getDummy() {
         return dummy;
     }
 

@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -14,42 +15,79 @@ import java.util.Map;
  */
 public class CalculosVogel {
 
-    private final ArrayList<Integer> custoRotalinhaUm;
-    private final ArrayList<Integer> custoRotalinhaDois;
-    private final ArrayList<Integer> custoRotalinhaDummy;
+    private final ArrayList<Integer> custosRotalinhaUm;
+    private final ArrayList<Integer> custosRotalinhaDois;
+    private final ArrayList<Integer> custosRotalinhaDummy;
 
     public CalculosVogel() {
-        this.custoRotalinhaDois = new ArrayList<>();
-        this.custoRotalinhaUm = new ArrayList<>();
-        this.custoRotalinhaDummy = new ArrayList<>();
+        this.custosRotalinhaDois = new ArrayList<>();
+        this.custosRotalinhaUm = new ArrayList<>();
+        this.custosRotalinhaDummy = new ArrayList<>();
     }
 
     public void transformaMapaEmArraySemDummy(Map<String, Reino> mapaReinos) {
-        System.out.println("###Mapa###");
         for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
             Reino value = entrySet.getValue();
-            System.out.println("rota1:" + value.getRotaFabricaUm());
-            System.out.println("rota2:" + value.getRotaFabricaDois());
-            custoRotalinhaUm.add(value.getRotaFabricaUm());
-            custoRotalinhaDois.add(value.getRotaFabricaDois());
+            custosRotalinhaUm.add(value.getRotaFabricaUm());
+            custosRotalinhaDois.add(value.getRotaFabricaDois());
         }
-        System.out.println("###Array linha um ###");
-        for (Integer custoRotalinhaUm1 : custoRotalinhaUm) {
-            System.out.println("custo:" + custoRotalinhaUm1);
-        }
-        System.out.println("###Array linha dois ###");
-        for (Integer custoRotalinhaUm1 : custoRotalinhaDois) {
-            System.out.println("custo:" + custoRotalinhaUm1);
-        }
-        
-        
+        calculaVogel(mapaReinos);
     }
 
     public void transformaMapaEmArrayComDummyOferta(Map<String, Reino> mapaReinos) {
-
+        for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
+            Reino value = entrySet.getValue();
+            custosRotalinhaUm.add(value.getRotaFabricaUm());
+            custosRotalinhaDois.add(value.getRotaFabricaDois());
+            custosRotalinhaDummy.add(value.getDummy());
+        }
+        calculaVogel(mapaReinos);
     }
 
     public void transformaMapaEmArrayComDummyDemanda(Map<String, Reino> mapaReinos) {
+        for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
+            Reino value = entrySet.getValue();
+            custosRotalinhaUm.add(value.getRotaFabricaUm());
+            custosRotalinhaDois.add(value.getRotaFabricaDois());
+        }
+        custosRotalinhaDois.add(0);
+        custosRotalinhaUm.add(0);
 
+        calculaVogel(mapaReinos);
+    }
+
+    private void calculaVogel(Map<String, Reino> mapaReinos) {
+        getMaiorPenalidade();
+    }
+
+    //retona o array com maior penalidade entre as linhas
+    private ArrayList<Integer> getMaiorPenalidade() {
+        Integer penalidadeLinhaUm = getPenalidadePorLinha(custosRotalinhaUm);
+        Integer penalidadeLinhaDois = getPenalidadePorLinha(custosRotalinhaDois);
+
+        System.out.println("Penalidade linha um: " + penalidadeLinhaUm);
+        System.out.println("Penalidade linha dois: " + penalidadeLinhaDois);
+        if (penalidadeLinhaUm > penalidadeLinhaDois) {
+            return custosRotalinhaUm;
+        } else {
+            return custosRotalinhaDois;
+        }
+    }
+
+    //faz o mesmo que o de cima soq com coluna
+    private ArrayList<Integer> calculaPenalidadeColuna(Map<String, Reino> mapaReinos) {
+        return null;
+
+    }
+
+    private Integer getPenalidadePorLinha(ArrayList<Integer> custosLinha) {
+        ArrayList<Integer> copiaDoArray = new ArrayList();
+        Integer primeiroMenorCusto, segundoMenorCusto;
+
+        copiaDoArray.addAll(custosLinha);
+        primeiroMenorCusto = Collections.min(copiaDoArray);
+        copiaDoArray.remove(primeiroMenorCusto);
+        segundoMenorCusto = Collections.min(copiaDoArray);
+        return segundoMenorCusto - primeiroMenorCusto;
     }
 }

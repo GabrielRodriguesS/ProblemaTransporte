@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Icon;
@@ -107,14 +108,23 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
                 cadastroValorRotaActionPerformed(evt);
             }
         });
+        cadastroValorRota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cadastroValorRotaKeyPressed(evt);
+            }
+        });
 
         lembrete.setText("<html> <p>*Lembre-se não faz sentido</p> <p>encomendar meia armadura,</p><p>logo a demanda é um inteiro</p>  </html>");
 
         calcular.setText("Calcular");
-        calcular.setEnabled(false);
         calcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calcularActionPerformed(evt);
+            }
+        });
+        calcular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                calcularKeyPressed(evt);
             }
         });
 
@@ -207,6 +217,18 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         }
         chamadaMetodoVogel(dummy);
     }//GEN-LAST:event_calcularActionPerformed
+
+    private void cadastroValorRotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cadastroValorRotaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cadastroValorRota.doClick();
+        }
+    }//GEN-LAST:event_cadastroValorRotaKeyPressed
+
+    private void calcularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calcularKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            calcular.doClick();
+        }
+    }//GEN-LAST:event_calcularKeyPressed
 
     private void chamadaMetodoVogel(Integer dummy) {
         CalculosVogel calculo = new CalculosVogel();

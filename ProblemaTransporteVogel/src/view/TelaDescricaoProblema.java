@@ -1,11 +1,14 @@
 package view;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Társila
  */
 public class TelaDescricaoProblema extends javax.swing.JFrame {
-    
+
     public TelaDescricaoProblema() {
         initComponents();
     }
@@ -41,6 +44,11 @@ public class TelaDescricaoProblema extends javax.swing.JFrame {
         confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmarActionPerformed(evt);
+            }
+        });
+        confirmar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                confirmarKeyPressed(evt);
             }
         });
 
@@ -86,6 +94,12 @@ public class TelaDescricaoProblema extends javax.swing.JFrame {
         panel.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_confirmarActionPerformed
+
+    private void confirmarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            confirmar.doClick();
+        }
+    }//GEN-LAST:event_confirmarKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmar;
