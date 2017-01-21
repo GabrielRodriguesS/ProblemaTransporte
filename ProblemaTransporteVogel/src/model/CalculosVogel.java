@@ -56,17 +56,20 @@ public class CalculosVogel {
         calculaVogel(mapaReinos);
     }
 
-    private void calculaVogel(Map<String, Reino> mapaReinos) {
-        getMaiorPenalidade();
+    public void calculaVogel(Map<String, Reino> mapaReinos) {
+        ArrayList<Integer> linhaComMaiorPenalidade = getMaiorPenalidadeEntreLinhaEColuna();
+        Integer colunaComMaiorPenalidade = calculaMaiorPenalidadeColuna(mapaReinos);
+
+        Integer penalidadeLinha = calculaPenalidadePorLinha(linhaComMaiorPenalidade);
+
+        System.out.println("Penalidade linha:" + penalidadeLinha);
+        System.out.println("Penalidade coluna:" + colunaComMaiorPenalidade);
     }
 
     //retona o array com maior penalidade entre as linhas
-    private ArrayList<Integer> getMaiorPenalidade() {
-        Integer penalidadeLinhaUm = getPenalidadePorLinha(custosRotalinhaUm);
-        Integer penalidadeLinhaDois = getPenalidadePorLinha(custosRotalinhaDois);
-
-        System.out.println("Penalidade linha um: " + penalidadeLinhaUm);
-        System.out.println("Penalidade linha dois: " + penalidadeLinhaDois);
+    public ArrayList<Integer> getMaiorPenalidadeEntreLinhaEColuna() {
+        Integer penalidadeLinhaUm = calculaPenalidadePorLinha(custosRotalinhaUm);
+        Integer penalidadeLinhaDois = calculaPenalidadePorLinha(custosRotalinhaDois);
         if (penalidadeLinhaUm > penalidadeLinhaDois) {
             return custosRotalinhaUm;
         } else {
@@ -75,12 +78,29 @@ public class CalculosVogel {
     }
 
     //faz o mesmo que o de cima soq com coluna
-    private ArrayList<Integer> calculaPenalidadeColuna(Map<String, Reino> mapaReinos) {
+    public Integer calculaMaiorPenalidadeColuna(Map<String, Reino> mapaReinos) {
+        ArrayList<Integer> penalidadesDasColunas = new ArrayList();
+        Integer maiorPenalidade;
+        for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
+            Reino value = entrySet.getValue();
+            if (value.getRotaFabricaUm() > value.getRotaFabricaDois()) {
+                penalidadesDasColunas.add(value.getRotaFabricaUm() - value.getRotaFabricaDois());
+            } else {
+                penalidadesDasColunas.add(value.getRotaFabricaDois() - value.getRotaFabricaUm());
+            }
+        }
+        maiorPenalidade = Collections.max(penalidadesDasColunas);
+        System.out.println("index: " + penalidadesDasColunas.indexOf(maiorPenalidade));
+        System.out.println("Valor da penalidae: " + maiorPenalidade);
+        return penalidadesDasColunas.indexOf(maiorPenalidade);
+    }
+
+    public ArrayList<Integer> calculaPenalidadeColunaDummyOferta(Map<String, Reino> mapaReinos) {
         return null;
 
     }
 
-    private Integer getPenalidadePorLinha(ArrayList<Integer> custosLinha) {
+    private Integer calculaPenalidadePorLinha(ArrayList<Integer> custosLinha) {
         ArrayList<Integer> copiaDoArray = new ArrayList();
         Integer primeiroMenorCusto, segundoMenorCusto;
 
