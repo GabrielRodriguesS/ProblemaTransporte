@@ -6,9 +6,13 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import static javafx.scene.input.KeyCode.T;
 import util.ReinoComparator;
+import util.ReinoComparatorDummy;
 
 /**
  *
@@ -18,12 +22,10 @@ public class CalculosVogel {
 
     private final ArrayList<Integer> custosRotalinhaUm;
     private final ArrayList<Integer> custosRotalinhaDois;
-    private final ArrayList<Integer> custosRotalinhaDummy;
 
     public CalculosVogel() {
         this.custosRotalinhaDois = new ArrayList<>();
         this.custosRotalinhaUm = new ArrayList<>();
-        this.custosRotalinhaDummy = new ArrayList<>();
     }
 
     public void transformaMapaEmArraySemDummy(Map<String, Reino> mapaReinos) {
@@ -40,7 +42,6 @@ public class CalculosVogel {
             Reino value = entrySet.getValue();
             custosRotalinhaUm.add(value.getRotaFabricaUm());
             custosRotalinhaDois.add(value.getRotaFabricaDois());
-            custosRotalinhaDummy.add(value.getDummy());
         }
         calculaVogel(mapaReinos, true);
     }
@@ -58,21 +59,30 @@ public class CalculosVogel {
     }
 
     public void calculaVogel(Map<String, Reino> mapaReinos, boolean dummyOferta) {
-        ArrayList<Integer> linhaComMaiorPenalidade = getMaiorPenalidadeLinha();
-        Reino colunaComMaiorPenalidade;
+        ArrayList<Integer> linhaComMaiorPenalidade = getMaiorPenalidadeDasLinhas();
+        Reino reinoDaColunaComMaiorPenalidade;
         if (dummyOferta) {
-            colunaComMaiorPenalidade = calculaMaiorPenalidadeColunaDummyOferta(mapaReinos);
+            reinoDaColunaComMaiorPenalidade = calculaMaiorPenalidadeColunaDummyOferta(mapaReinos);
         } else {
-            colunaComMaiorPenalidade = calculaMaiorPenalidadeColuna(mapaReinos);
+            reinoDaColunaComMaiorPenalidade = calculaMaiorPenalidadeColuna(mapaReinos);
         }
         Integer penalidadeLinha = calculaPenalidadePorLinha(linhaComMaiorPenalidade);
+        reinoDaColunaComMaiorPenalidade.setPenalidade();
 
-//        System.out.println("Penalidade linha:" + penalidadeLinha);
-//        System.out.println("Penalidade coluna:" + colunaComMaiorPenalidade);
+        System.out.println("Reino:");
+        System.out.println("f1: " + reinoDaColunaComMaiorPenalidade.getRotaFabricaUm());
+        System.out.println("f2: " + reinoDaColunaComMaiorPenalidade.getRotaFabricaDois());
+        System.out.println("Penal: " + reinoDaColunaComMaiorPenalidade.getPenalidade());
+
+        if (penalidadeLinha > reinoDaColunaComMaiorPenalidade.getPenalidade()) {
+
+        } else {
+
+        }
     }
 
     //retona o array com maior penalidade entre as linhas
-    public ArrayList<Integer> getMaiorPenalidadeLinha() {
+    public ArrayList<Integer> getMaiorPenalidadeDasLinhas() {
         Integer penalidadeLinhaUm = calculaPenalidadePorLinha(custosRotalinhaUm);
         Integer penalidadeLinhaDois = calculaPenalidadePorLinha(custosRotalinhaDois);
         System.out.println("Penalidade linha1: " + penalidadeLinhaUm);
@@ -86,34 +96,26 @@ public class CalculosVogel {
 
     //faz o mesmo que o de cima soq com coluna
     public Reino calculaMaiorPenalidadeColuna(Map<String, Reino> mapaReinos) {
-        //return Collections.max(mapaReinos.values(), new ReinoComparator());
-        Reino r = Collections.max(mapaReinos.values(), new ReinoComparator());
-        System.out.println("Caracteristicas Reino");
-        System.out.println("F1: " + r.getRotaFabricaUm());
-        System.out.println("F2: " + r.getRotaFabricaDois());
-        System.out.println("Demanda: " + r.getDemanda());
-        return r;
+        return Collections.max(mapaReinos.values(), new ReinoComparator());
     }
 
     //retorna a chave para a coluna com maior penalidade
     public Reino calculaMaiorPenalidadeColunaDummyOferta(Map<String, Reino> mapaReinos) {
-        ArrayList<Integer> penalidadesDasColunas = new ArrayList();
-        Integer maiorPenalidade;
-        System.out.println("Ordem dos elementos no mapa:");
-        for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
-            Reino value = entrySet.getValue();
-            if (value.getRotaFabricaUm() > value.getRotaFabricaDois()) {
-                penalidadesDasColunas.add(value.getRotaFabricaUm() - value.getRotaFabricaDois());
-            } else {
-                penalidadesDasColunas.add(value.getRotaFabricaDois() - value.getRotaFabricaUm());
-            }
-            System.out.println("Penalidade:" + penalidadesDasColunas.get(penalidadesDasColunas.size() - 1));
-        }
-        maiorPenalidade = Collections.max(penalidadesDasColunas);
-        System.out.println("index: " + penalidadesDasColunas.indexOf(maiorPenalidade));
-        System.out.println("Valor da penalidae: " + maiorPenalidade);
-        //return penalidadesDasColunas.indexOf(maiorPenalidade);
-        return null;
+        return Collections.max(mapaReinos.values(), new ReinoComparatorDummy());
+//        List<Reino> l = new ArrayList<>();
+//        for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
+//            Reino value = entrySet.getValue();
+//            l.add(value);
+//        }
+//        Collections.sort(l, new ReinoComparatorDummy());
+//        System.out.println("Lista ordnada");
+//        for (Reino l1 : l) {
+//            System.out.println("###");
+//            System.out.println("f1: " + l1.getRotaFabricaUm());
+//            System.out.println("f2: " + l1.getRotaFabricaDois());
+//            System.out.println("###");
+//        }
+//        return null;
     }
 
     public Integer calculaPenalidadePorLinha(ArrayList<Integer> custosLinha) {

@@ -42,7 +42,7 @@ public class CalculosVogelTest {
     @Test
     public void testCalculoMaiorColuna() {
         Reino retorno = calculo.calculaMaiorPenalidadeColuna(mapaReinos);
-        Assert.assertEquals((Object) reino4, (Object) retorno);
+        Assert.assertEquals((Object) reino3, (Object) retorno);
     }
 
     @Ignore
@@ -55,15 +55,15 @@ public class CalculosVogelTest {
 // public Reino(Integer rotaFabricaUm, Integer rotaFabricaDois, Integer demanda, Integer penalidade, Integer quantidadeTransportada) 
 //LEMBRAR QUE A ORDEM NO HASHMAP É DEFINIDA POR UM HASH E NAO NA ORDEM DE INSERÇÃO!
     private void instanciaReinos1() {
-        reino1 = new Reino(2, 5, 500, 0, 0); //3 
-        reino2 = new Reino(8, 9, 500, 0, 0); //1
-        reino3 = new Reino(6, 10, 500, 0, 0); //4
-        reino4 = new Reino(1, 6, 500, 0, 0); //5
-        reino5 = new Reino(8, 3, 500, 0, 0); //5
+        reino1 = new Reino(2, 5, 500, 0, 0); //3 d 5
+        reino2 = new Reino(8, 9, 500, 0, 0); //1 d 9
+        reino3 = new Reino(6, 10, 500, 0, 0); //4 d 10
+        reino4 = new Reino(1, 6, 500, 0, 0); //5 d 6
+        reino5 = new Reino(8, 3, 500, 0, 0); //5 d 3
     }
 
     private void instanciaReinos2() {
-        reino1 = new Reino(1, 10, 500, 0, 0); //9
+        reino1 = new Reino(1, 10, 500, 0, 0); //9 
         reino2 = new Reino(2, 5, 500, 0, 0); //3
         reino3 = new Reino(6, 10, 500, 0, 0); //4
         reino4 = new Reino(1, 9, 500, 0, 0); // 8
