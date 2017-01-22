@@ -10,40 +10,51 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.Ignore;
 
 /**
  *
  * @author Gabriel
  */
 public class CalculosVogelTest {
-// public Reino(Integer rotaFabricaUm, Integer rotaFabricaDois, Integer demanda, Integer penalidade, Integer quantidadeTransportada) {
 
-    Map<String, Reino> mapaReinos = new HashMap();
-    Reino reino1 = new Reino(2, 5, 500, 0, 0);
-    Reino reino2 = new Reino(8, 9, 500, 0, 0);
-    Reino reino3 = new Reino(6, 10, 500, 0, 0);
-    Reino reino4 = new Reino(1, 6, 500, 0, 0);
-    Reino reino5 = new Reino(8, 3, 500, 0, 0);
+    Map<String, Reino> mapaReinos;
+    CalculosVogel calculo;
+    Reino reino1;
+    Reino reino2;
+    Reino reino3;
+    Reino reino4;
+    Reino reino5;
 
     @Before
     public void setUp() {
-        instanciaReinos2();
+        mapaReinos = new HashMap();
+        calculo = new CalculosVogel();
+        instanciaReinos1();
         mapaReinos.put("Reino 1", this.reino1);
         mapaReinos.put("Reino 2", this.reino2);
         mapaReinos.put("Reino 3", this.reino3);
         mapaReinos.put("Reino 4", this.reino4);
         mapaReinos.put("Reino 5", this.reino5);
+        calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
     }
 
     @Test
     public void testCalculoMaiorColuna() {
-        CalculosVogel calculo = new CalculosVogel();
-        Integer retorno = calculo.calculaMaiorPenalidadeColuna(mapaReinos);
-        Assert.assertEquals((Object) 0, (Object) retorno);
+        Reino retorno = calculo.calculaMaiorPenalidadeColuna(mapaReinos);
+        Assert.assertEquals((Object) reino4, (Object) retorno);
     }
 
-    //LEMBRAR QUE A ORDEM NO HASHMAP É DEFINIDA POR UM HASH E NAO NA ORDEM DE INSERÇÃO!
-    private void instanciaReinos() {
+    @Ignore
+    @Test
+    public void testLinhaMaiorPenalidade() {
+        Integer retorno = calculo.calculaPenalidadePorLinha(calculo.getCustosRotalinhaDois());
+        Assert.assertEquals((Object) 2, (Object) retorno);
+    }
+
+// public Reino(Integer rotaFabricaUm, Integer rotaFabricaDois, Integer demanda, Integer penalidade, Integer quantidadeTransportada) 
+//LEMBRAR QUE A ORDEM NO HASHMAP É DEFINIDA POR UM HASH E NAO NA ORDEM DE INSERÇÃO!
+    private void instanciaReinos1() {
         reino1 = new Reino(2, 5, 500, 0, 0); //3 
         reino2 = new Reino(8, 9, 500, 0, 0); //1
         reino3 = new Reino(6, 10, 500, 0, 0); //4
@@ -56,6 +67,14 @@ public class CalculosVogelTest {
         reino2 = new Reino(2, 5, 500, 0, 0); //3
         reino3 = new Reino(6, 10, 500, 0, 0); //4
         reino4 = new Reino(1, 9, 500, 0, 0); // 8
+        reino5 = new Reino(8, 3, 500, 0, 0); //5
+    }
+
+    private void instanciaReinos3() {
+        reino1 = new Reino(6, 16, 500, 0, 0); //10
+        reino2 = new Reino(2, 5, 500, 0, 0); //3
+        reino3 = new Reino(1, 10, 500, 0, 0); //9
+        reino4 = new Reino(1, 10, 500, 0, 0); // 9
         reino5 = new Reino(8, 3, 500, 0, 0); //5
     }
 
