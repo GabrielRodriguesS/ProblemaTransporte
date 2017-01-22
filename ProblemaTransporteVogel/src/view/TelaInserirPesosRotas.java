@@ -204,7 +204,9 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
 
     private void cadastroValorRotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroValorRotaActionPerformed
         String nomeReino = (String) this.destino.getSelectedItem();
-        setPesosRotas(getReino(nomeReino));
+        Reino reinoSelecionado = getReino(nomeReino);
+        reinoSelecionado.setNomeReino(nomeReino);
+        setPesosRotas(reinoSelecionado);
         this.destino.requestFocus();
         this.limpaInputs();
     }//GEN-LAST:event_cadastroValorRotaActionPerformed

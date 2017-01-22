@@ -7,10 +7,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import util.ReinoComparator;
 
 /**
  *
@@ -20,10 +18,14 @@ public class CalculosVogel {
 
     private final ArrayList<Integer> custosRotalinhaUm;
     private final ArrayList<Integer> custosRotalinhaDois;
+    private final ArrayList<Transporte> transportes;
+    private static Integer ofertaFabricaUm = 1800;
+    private static Integer ofertaFabricaDois = 700;
 
     public CalculosVogel() {
         this.custosRotalinhaDois = new ArrayList<>();
         this.custosRotalinhaUm = new ArrayList<>();
+        this.transportes = new ArrayList<>();
     }
 
     public void transformaMapaEmArraySemDummy(Map<String, Reino> mapaReinos) {
@@ -60,9 +62,9 @@ public class CalculosVogel {
         ArrayList<Integer> linhaComMaiorPenalidade = getMaiorPenalidadeDasLinhas();
         Reino reinoDaColunaComMaiorPenalidade = calculaMaiorPenalidadeColuna(mapaReinos);
         Integer penalidadeLinha = calculaPenalidadePorLinha(linhaComMaiorPenalidade);
-
         if (penalidadeLinha > reinoDaColunaComMaiorPenalidade.getPenalidade()) {
-
+            penalidadeLinha = this.getMenorCustoLinha(linhaComMaiorPenalidade);
+            calculaTransporteSobreLinha(linhaComMaiorPenalidade, penalidadeLinha, mapaReinos);
         } else {
 
         }
@@ -70,13 +72,25 @@ public class CalculosVogel {
 
     //retona o array com maior penalidade entre as linhas
     public ArrayList<Integer> getMaiorPenalidadeDasLinhas() {
-        Integer penalidadeLinhaUm = calculaPenalidadePorLinha(custosRotalinhaUm);
-        Integer penalidadeLinhaDois = calculaPenalidadePorLinha(custosRotalinhaDois);
-        if (penalidadeLinhaUm > penalidadeLinhaDois) {
-            return custosRotalinhaUm;
+        Integer penalidadeLinhaUm;
+        Integer penalidadeLinhaDois;
+        if (custosRotalinhaUm == null) {
+            penalidadeLinhaUm = Integer.MIN_VALUE;
         } else {
+            penalidadeLinhaUm = calculaPenalidadePorLinha(custosRotalinhaUm);
+        }
+        if (custosRotalinhaDois == null) {
+            penalidadeLinhaDois = Integer.MIN_VALUE;
+        } else {
+            penalidadeLinhaDois = calculaPenalidadePorLinha(custosRotalinhaDois);
+        }
+
+        if (penalidadeLinhaUm > penalidadeLinhaDois && penalidadeLinhaUm != Integer.MIN_VALUE) {
+            return custosRotalinhaUm;
+        } else if (penalidadeLinhaDois != Integer.MIN_VALUE) {
             return custosRotalinhaDois;
         }
+        return null;
     }
 
     //faz o mesmo que o de cima soq com coluna
@@ -95,6 +109,74 @@ public class CalculosVogel {
         copiaDoArray.remove(primeiroMenorCusto);
         segundoMenorCusto = Collections.min(copiaDoArray);
         return segundoMenorCusto - primeiroMenorCusto;
+    }
+
+    public void calculaTransporteSobreLinha(ArrayList<Integer> custoLinha, Integer menorPenalidade, Map<String, Reino> mapaReinos) {
+        if (this.custosRotalinhaUm.equals(custoLinha)) {
+            buscaNoMapaReinoLinhaUm(menorPenalidade, mapaReinos);
+        } else {
+            buscaNoMapaReinoLinhaDois(menorPenalidade, mapaReinos);
+        }
+    }
+
+    public Integer getMenorCustoLinha(ArrayList<Integer> custoLinha) {
+        return Collections.min(custoLinha);
+
+    }
+
+    public void buscaNoMapaReinoLinhaDois(Integer menorPenalidade, Map<String, Reino> mapaReinos) {
+        Integer index = this.custosRotalinhaDois.indexOf(menorPenalidade);
+        Reino reino = buscarNoMapaOReino(index, mapaReinos);
+        Integer quantidadeTransportada = calculaQuantidadeTransportada(reino.getDemanda(), CalculosVogel.ofertaFabricaDois);
+
+        Transporte informacoesTransporte = new Transporte();
+        informacoesTransporte.setNomeReino(reino.getNomeReino());
+        informacoesTransporte.setPenalidade(menorPenalidade);
+        informacoesTransporte.setQuantidadeTransportada(quantidadeTransportada);
+        this.transportes.add(informacoesTransporte);
+
+        eliminaLinhaOferta(quantidadeTransportada, custosRotalinhaDois, reino);
+    }
+
+    public void buscaNoMapaReinoLinhaUm(Integer menorPenalidade, Map<String, Reino> mapaReinos) {
+        Integer index = this.custosRotalinhaUm.indexOf(menorPenalidade);
+        Reino reino = buscarNoMapaOReino(index, mapaReinos);
+        Integer quantidadeTransportada = calculaQuantidadeTransportada(reino.getDemanda(), CalculosVogel.ofertaFabricaUm);
+
+        Transporte informacoesTransporte = new Transporte();
+        informacoesTransporte.setNomeReino(reino.getNomeReino());
+        informacoesTransporte.setPenalidade(menorPenalidade);
+        informacoesTransporte.setQuantidadeTransportada(quantidadeTransportada);
+        this.transportes.add(informacoesTransporte);
+
+        eliminaLinhaOferta(quantidadeTransportada, custosRotalinhaUm, reino);
+    }
+
+    public Reino buscarNoMapaOReino(Integer index, Map<String, Reino> mapaReinos) {
+        int i = 0;
+        for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
+            if (i == index) {
+                return entrySet.getValue();
+            }
+            i++;
+        }
+        return null;
+    }
+
+    private Integer calculaQuantidadeTransportada(Integer demanda, Integer oferta) {
+        oferta -= demanda;
+        if (oferta > 0) {
+            return demanda;
+        } else {
+            return oferta;
+        }
+    }
+
+    private void eliminaLinhaOferta(Integer quantidadeTransportada, ArrayList<Integer> linha, Reino reino) {
+        if (quantidadeTransportada < 0 || quantidadeTransportada == 0) {
+            linha = null;
+            reino.setDemanda(Math.abs(quantidadeTransportada));
+        }
     }
 
     public ArrayList<Integer> getCustosRotalinhaUm() {

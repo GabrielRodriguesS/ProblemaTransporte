@@ -16,16 +16,26 @@ public class Reino implements Comparable<Reino> {
     private Integer demanda;
     private Integer penalidade;
     private Integer quantidadeTransportada;
+    private String nomeReino;
 
-    public Reino(Integer rotaFabricaUm, Integer rotaFabricaDois, Integer demanda, Integer penalidade, Integer quantidadeTransportada) {
+    public Reino(Integer rotaFabricaUm, Integer rotaFabricaDois, Integer demanda, Integer penalidade, Integer quantidadeTransportada, String nomeReino) {
         this.rotaFabricaUm = rotaFabricaUm;
         this.rotaFabricaDois = rotaFabricaDois;
         this.demanda = demanda;
         this.penalidade = penalidade;
         this.quantidadeTransportada = quantidadeTransportada;
+        this.nomeReino = nomeReino;
     }
 
     public Reino() {
+    }
+
+    public String getNomeReino() {
+        return nomeReino;
+    }
+
+    public void setNomeReino(String nomeReino) {
+        this.nomeReino = nomeReino;
     }
 
     public Integer getPenalidade() {
