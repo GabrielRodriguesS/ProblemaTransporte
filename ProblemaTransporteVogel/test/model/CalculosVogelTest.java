@@ -36,12 +36,12 @@ public class CalculosVogelTest {
         mapaReinos.put("Reino 3", this.reino3);
         mapaReinos.put("Reino 4", this.reino4);
         mapaReinos.put("Reino 5", this.reino5);
-        calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
+        //calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
     }
 
     @Test
     public void testCalculoMaiorColuna() {
-        Reino retorno = calculo.calculaMaiorPenalidadeColuna(mapaReinos);
+        Reino retorno = calculo.calculaMaiorPenalidadeColunaDummyOferta(mapaReinos);
         Assert.assertEquals((Object) reino3, (Object) retorno);
     }
 

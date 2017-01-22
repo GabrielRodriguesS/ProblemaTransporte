@@ -48,6 +48,14 @@ public class Reino implements Comparable<Reino> {
         }
     }
 
+    public void setPenalidadeDummy() {
+        if (this.getRotaFabricaUm() > this.getRotaFabricaDois()) {
+            this.penalidade = this.rotaFabricaDois;
+        } else {
+            this.penalidade = this.rotaFabricaUm;
+        }
+    }
+
     public Integer getRotaFabricaUm() {
         return rotaFabricaUm;
     }
@@ -73,11 +81,10 @@ public class Reino implements Comparable<Reino> {
     }
 
     @Override
-    public int compareTo(Reino o) {
-        if (this.getPenalidade() < o.getPenalidade()) {
+    public int compareTo(Reino outroReino) {
+        if (this.getPenalidade() < outroReino.getPenalidade()) {
             return -1;
-        }
-        if (this.getPenalidade() > o.getPenalidade()) {
+        } else if (this.getPenalidade() > outroReino.getPenalidade()) {
             return 1;
         }
         return 0;

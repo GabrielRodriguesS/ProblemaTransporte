@@ -6,13 +6,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import static javafx.scene.input.KeyCode.T;
 import util.ReinoComparator;
-import util.ReinoComparatorDummy;
 
 /**
  *
@@ -96,11 +94,19 @@ public class CalculosVogel {
 
     //faz o mesmo que o de cima soq com coluna
     public Reino calculaMaiorPenalidadeColuna(Map<String, Reino> mapaReinos) {
-        return Collections.max(mapaReinos.values(), new ReinoComparator());
+        return Collections.max(mapaReinos.values());
     }
 
     //retorna a chave para a coluna com maior penalidade
     public Reino calculaMaiorPenalidadeColunaDummyOferta(Map<String, Reino> mapaReinos) {
+        List<Reino> values = new ArrayList(mapaReinos.values());
+
+        Collections.sort(values);
+        for (Reino value : values) {
+            System.out.println("Reino:");
+            System.out.println("f1: " + value.getRotaFabricaUm());
+            System.out.println("f2: " + value.getRotaFabricaDois());
+        }
         return Collections.max(mapaReinos.values(), new ReinoComparatorDummy());
 //        List<Reino> l = new ArrayList<>();
 //        for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
@@ -116,6 +122,13 @@ public class CalculosVogel {
 //            System.out.println("###");
 //        }
 //        return null;
+    }
+
+    public LinkedHashMap<String, Reino> transformeTreeMap(Map<String, Reino> mapaReinos) {
+        LinkedHashMap<String, Reino> ordenado = new LinkedHashMap();
+        List<String> keys = (ArrayList<String>) mapaReinos.keySet();
+
+        return null;
     }
 
     public Integer calculaPenalidadePorLinha(ArrayList<Integer> custosLinha) {

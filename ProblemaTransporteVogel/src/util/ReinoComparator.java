@@ -16,22 +16,11 @@ public class ReinoComparator implements Comparator<Reino> {
 
     @Override
     public int compare(Reino obj1, Reino obj2) {
-        int somaObj1 = this.getPenalidade(obj1);
-        int somaObj2 = this.getPenalidade(obj2);
-        if (somaObj1 < somaObj2) {
+        if (obj1.getPenalidade() < obj2.getPenalidade()) {
             return -1;
-        } else if (somaObj1 > somaObj2) {
+        } else if (obj1.getPenalidade() > obj2.getPenalidade()) {
             return 1;
         }
         return 0;
     }
-
-    private int getPenalidade(Reino obj) {
-        if (obj.getRotaFabricaUm() > obj.getRotaFabricaDois()) {
-            return obj.getRotaFabricaUm() - obj.getRotaFabricaDois();
-        } else {
-            return obj.getRotaFabricaDois() - obj.getRotaFabricaUm();
-        }
-    }
-
 }
