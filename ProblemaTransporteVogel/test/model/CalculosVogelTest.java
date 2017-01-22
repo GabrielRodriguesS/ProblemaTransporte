@@ -36,16 +36,15 @@ public class CalculosVogelTest {
         mapaReinos.put("Reino 3", this.reino3);
         mapaReinos.put("Reino 4", this.reino4);
         mapaReinos.put("Reino 5", this.reino5);
-        //calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
+        calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
     }
 
     @Test
     public void testCalculoMaiorColuna() {
-        Reino retorno = calculo.calculaMaiorPenalidadeColunaDummyOferta(mapaReinos);
-        Assert.assertEquals((Object) reino3, (Object) retorno);
+        Reino retorno = calculo.calculaMaiorPenalidadeColuna(mapaReinos);
+        Assert.assertEquals((Object) reino2, (Object) retorno);
     }
 
-    @Ignore
     @Test
     public void testLinhaMaiorPenalidade() {
         Integer retorno = calculo.calculaPenalidadePorLinha(calculo.getCustosRotalinhaDois());
@@ -55,11 +54,17 @@ public class CalculosVogelTest {
 // public Reino(Integer rotaFabricaUm, Integer rotaFabricaDois, Integer demanda, Integer penalidade, Integer quantidadeTransportada) 
 //LEMBRAR QUE A ORDEM NO HASHMAP É DEFINIDA POR UM HASH E NAO NA ORDEM DE INSERÇÃO!
     private void instanciaReinos1() {
-        reino1 = new Reino(2, 5, 500, 0, 0); //3 d 5
-        reino2 = new Reino(8, 9, 500, 0, 0); //1 d 9
-        reino3 = new Reino(6, 10, 500, 0, 0); //4 d 10
-        reino4 = new Reino(1, 6, 500, 0, 0); //5 d 6
-        reino5 = new Reino(8, 3, 500, 0, 0); //5 d 3
+        reino1 = new Reino(2, 5, 500, 0, 0); //3 
+        reino2 = new Reino(8, 9, 500, 0, 0); //1 
+        reino3 = new Reino(6, 10, 500, 0, 0); //4 
+        reino4 = new Reino(1, 6, 500, 0, 0); //5 
+        reino5 = new Reino(8, 3, 500, 0, 0); //5 
+
+        reino1.setPenalidadeDummy(); //pena 2
+        reino2.setPenalidadeDummy(); //pena 8
+        reino3.setPenalidadeDummy(); //pena 6
+        reino4.setPenalidadeDummy(); //pena 1
+        reino5.setPenalidadeDummy(); //pena 3
     }
 
     private void instanciaReinos2() {
