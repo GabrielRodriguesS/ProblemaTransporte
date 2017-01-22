@@ -30,7 +30,7 @@ public class CalculosVogelTest {
     @Before
     public void setUp() {
         mapaReinos = new HashMap();
-        calculo = new CalculosVogel();
+        calculo = new CalculosVogel(mapaReinos);
         instanciaReinos3();
         mapaReinos.put("Reino 1", this.reino1);
         mapaReinos.put("Reino 2", this.reino2);

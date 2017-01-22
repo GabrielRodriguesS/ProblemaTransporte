@@ -233,7 +233,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
     }//GEN-LAST:event_calcularKeyPressed
 
     private void chamadaMetodoVogel(Integer dummy) {
-        CalculosVogel calculo = new CalculosVogel();
+        CalculosVogel calculo = new CalculosVogel(mapaReinos);
         if (dummy > 2500) {
             this.calculaPenalidades(true);
             calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
