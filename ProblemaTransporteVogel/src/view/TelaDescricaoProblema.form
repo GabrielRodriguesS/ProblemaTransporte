@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Problema do Transporte"/>
@@ -32,7 +32,7 @@
               <Component id="descricaoProblema" min="-2" pref="650" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="imagem" min="-2" pref="554" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -46,12 +46,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="descricaoProblema" max="32767" attributes="0"/>
                   <Component id="imagem" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="confirmar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -72,7 +72,7 @@
     <Component class="javax.swing.JLabel" name="descricaoProblema">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;   &lt;font size=&quot;6&quot;&gt; &lt;b&gt;&lt;p align =&quot;center&quot;&gt; - Problema do Transporte -  &lt;p align =&quot;center&quot;&gt;M&#xe9;todo de Aproxima&#xe7;&#xe3;o de Vogel&lt;/b&gt; &lt;/font&gt;   &lt;/br&gt; &#xa;&lt;font size=&quot;5&quot;&gt; &lt;br&gt; A forja de armaduras &quot;Kovir&amp;Poviss&quot; possui uma instala&#xe7;&#xe3;o matriz e uma filial. A primeira, F1, tem capacidade de produ&#xe7;&#xe3;o total de &lt;b&gt;1800 &lt;/b&gt; armaduras. Enquanto a filial, F2, um pouco menor, pode fornecer &lt;b&gt;700 &lt;/b&gt; armaduras. &lt;/br&gt; &#xa;&lt;br&gt; &lt;br&gt; Kovir&amp;Poviss distribui suas finais pe&#xe7;as por 5 reinos da regi&#xe3;o: &lt;b&gt;R1, R2, R3, R4, e R5 &lt;/b&gt;. A demanda de armaduras para os 5 reinos &#xe9; fixa e distribu&#xed;da conforme indicado abaixo, respectivamente: &lt;b&gt; 890, 105, 600, 405, 500&lt;/b&gt;. &lt;/br&gt; &#xa;&lt;br&gt;&lt;br&gt;  Os cavalos e embarca&#xe7;&#xf5;es dispon&#xed;veis para fazer o transporte das mercadorias atendem a todas as rotas, entretanto, cada uma possui um custo variado. O custo de transporte deve ser fornecido. &lt;/br&gt; &#xa;&lt;br&gt; &lt;br&gt; O objetivo &#xe9; atender a todos os reinos pelo menor custo de viagem. &lt;/br&gt; &#xa;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa; &lt;font size=&quot;6&quot;&gt;&lt;p align=&quot;center&quot;&gt;&lt;b&gt;- Problema do Transporte -  &lt;/b&gt;&lt;/p&gt;&lt;/font size&gt;&#xa;&lt;font size=&quot;6&quot;&gt; &lt;p align=&quot;center&quot;&gt;&lt;b&gt;M&#xe9;todo de Aproxima&#xe7;&#xe3;o de Vogel&lt;/b&gt;&lt;/p&gt;&lt;/font size&gt;&#xa;  &lt;/br&gt;  &lt;font size=&quot;5&quot;&gt; &lt;br&gt;&#xa; A forja de armaduras &quot;Kovir&amp;Poviss&quot; possui uma instala&#xe7;&#xe3;o matriz e uma filial. A primeira, F1, tem capacidade de produ&#xe7;&#xe3;o total de&#xa; &lt;b&gt;1800 &lt;/b&gt; armaduras. Enquanto a filial, F2, um pouco menor, pode fornecer &#xa; &lt;b&gt;700 &lt;/b&gt; armaduras. &lt;/br&gt;  &#xa; &lt;br&gt; &lt;br&gt; Kovir&amp;Poviss distribui suas finais pe&#xe7;as por 5 reinos da regi&#xe3;o:&#xa; &lt;b&gt;R1, R2, R3, R4, e R5 &lt;/b&gt;. A demanda de armaduras para os 5 reinos &#xe9; fixa e distribu&#xed;da conforme indicado abaixo, respectivamente:&#xa; &lt;b&gt; 890, 105, 600, 405, 500&lt;/b&gt;. &lt;/br&gt;  &#xa; &lt;br&gt;&lt;br&gt;  Os cavalos e embarca&#xe7;&#xf5;es dispon&#xed;veis para fazer o transporte das mercadorias atendem a todas as rotas,&#xa; entretanto, cada uma possui um custo variado. O custo de transporte deve ser fornecido. &#xa; &lt;/br&gt;&lt;br&gt; &lt;br&gt; O objetivo &#xe9; atender a todos os reinos pelo menor custo de viagem. &lt;/br&gt;&#xa; &lt;/html&gt;"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
             <MatteColorBorder bottom="2" left="2" right="2" top="2">
