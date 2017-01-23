@@ -37,18 +37,24 @@ public class CalculosVogelTest {
         mapaReinos.put("Reino 3", this.reino3);
         mapaReinos.put("Reino 4", this.reino4);
         mapaReinos.put("Reino 5", this.reino5);
-        calculo.transformaMapaEmArraySemDummy(mapaReinos);
+        calculo.transformaMapaEmArraySemDummy();
     }
 
     @Test
+    public void testVogel() {
+        calculo.calculaVogel(false);
+    }
+
+    @Ignore
+    @Test
     public void testBuscaReino() {
-        Assert.assertEquals((Object) reino2, calculo.buscarNoMapaOReino(2, mapaReinos));
+        Assert.assertEquals((Object) reino2, calculo.buscarNoMapaOReino(2));
     }
 
     @Ignore
     @Test
     public void testCalculoMaiorColuna() {
-        Reino retorno = calculo.calculaMaiorPenalidadeColuna(mapaReinos);
+        Reino retorno = calculo.calculaMaiorPenalidadeColuna();
         Assert.assertEquals((Object) reino2, (Object) retorno);
     }
 
@@ -97,11 +103,17 @@ public class CalculosVogelTest {
     }
 
     private void instanciaReinos3() {
-        reino1 = new Reino(6, 16, 500, 0, 0, "reino1"); //10
+        reino1 = new Reino(6, 16, 700, 0, 0, "reino1"); //10
         reino2 = new Reino(2, 5, 500, 0, 0, "reino2"); //3
-        reino3 = new Reino(1, 10, 500, 0, 0, "reino3"); //9
-        reino4 = new Reino(1, 11, 500, 0, 0, "reino4"); // 9
-        reino5 = new Reino(8, 3, 500, 0, 0, "reino5"); //5
+        reino3 = new Reino(1, 10, 700, 0, 0, "reino3"); //9
+        reino4 = new Reino(1, 11, 700, 0, 0, "reino4"); // 9
+        reino5 = new Reino(8, 3, 700, 0, 0, "reino5"); //5
+
+        reino1.setPenalidade(); //pena 2
+        reino2.setPenalidade(); //pena 8
+        reino3.setPenalidade(); //pena 6
+        reino4.setPenalidade(); //pena 1
+        reino5.setPenalidade(); //pena 3
     }
 
 }

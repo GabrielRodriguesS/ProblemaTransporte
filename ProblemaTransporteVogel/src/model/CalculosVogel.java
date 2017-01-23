@@ -29,6 +29,7 @@ public class CalculosVogel {
         this.custosRotalinhaDois = new ArrayList<>();
         this.custosRotalinhaUm = new ArrayList<>();
         this.transportes = new ArrayList<>();
+        this.mapaReinos = mapaReinos;
     }
 
     public void transformaMapaEmArraySemDummy() {
@@ -73,6 +74,7 @@ public class CalculosVogel {
             } else {
                 calculaTransporteSobreColuna(reinoDaColunaComMaiorPenalidade);
             }
+
             this.calculaVogel(dummyOferta);
         }
 
@@ -82,12 +84,12 @@ public class CalculosVogel {
     public ArrayList<Integer> getMaiorPenalidadeDasLinhas() {
         Integer penalidadeLinhaUm;
         Integer penalidadeLinhaDois;
-        if (!custosRotalinhaUm.isEmpty()) {
+        if (custosRotalinhaUm.isEmpty()) {
             penalidadeLinhaUm = Integer.MIN_VALUE;
         } else {
             penalidadeLinhaUm = calculaPenalidadePorLinha(custosRotalinhaUm);
         }
-        if (!custosRotalinhaDois.isEmpty()) {
+        if (custosRotalinhaDois.isEmpty()) {
             penalidadeLinhaDois = Integer.MIN_VALUE;
         } else {
             penalidadeLinhaDois = calculaPenalidadePorLinha(custosRotalinhaDois);
@@ -135,7 +137,20 @@ public class CalculosVogel {
     public void calculosTransporteLinhaDois(Integer menorPenalidade) {
         Integer index = this.custosRotalinhaDois.indexOf(menorPenalidade);
         Reino reino = buscarNoMapaOReino(index);
-        Integer quantidadeTransportada = calculaQuantidadeTransportada(reino.getDemanda(), CalculosVogel.ofertaFabricaDois);
+        Integer quantidadeTransportada;
+        if (CalculosVogel.ofertaFabricaDois - reino.getDemanda() > 0) {
+            quantidadeTransportada = reino.getDemanda();
+            mapaReinos.remove(reino.getNomeReino());
+        } else if (CalculosVogel.ofertaFabricaDois - reino.getDemanda() < 0) {
+            quantidadeTransportada = CalculosVogel.ofertaFabricaDois;
+            this.custosRotalinhaDois.clear();
+            reino.setDemanda(reino.getDemanda() - quantidadeTransportada);
+            mapaReinos.replace(reino.getNomeReino(), reino);
+        } else {
+            quantidadeTransportada = CalculosVogel.ofertaFabricaDois;
+            mapaReinos.remove(reino.getNomeReino());
+            this.custosRotalinhaDois.clear();
+        }
 
         Transporte informacoesTransporte = new Transporte();
         informacoesTransporte.setNomeReino(reino.getNomeReino());
@@ -149,7 +164,23 @@ public class CalculosVogel {
     public void calculosTransporteLinhaUm(Integer menorPenalidade) {
         Integer index = this.custosRotalinhaUm.indexOf(menorPenalidade);
         Reino reino = buscarNoMapaOReino(index);
-        Integer quantidadeTransportada = calculaQuantidadeTransportada(reino.getDemanda(), CalculosVogel.ofertaFabricaUm);
+        Integer quantidadeTransportada;
+
+        if (CalculosVogel.ofertaFabricaUm - reino.getDemanda() > 0) {
+            quantidadeTransportada = reino.getDemanda();
+            mapaReinos.remove(reino.getNomeReino());
+            this.custosRotalinhaUm.remove(reino.getRotaFabricaUm());
+            removeColunaDosCustos(reino);
+        } else if (CalculosVogel.ofertaFabricaUm - reino.getDemanda() < 0) {
+            quantidadeTransportada = CalculosVogel.ofertaFabricaUm;
+            this.custosRotalinhaUm.clear();
+            reino.setDemanda(reino.getDemanda() - quantidadeTransportada);
+            mapaReinos.replace(reino.getNomeReino(), reino);
+        } else {
+            quantidadeTransportada = CalculosVogel.ofertaFabricaUm;
+            mapaReinos.remove(reino.getNomeReino());
+            this.custosRotalinhaUm.clear();
+        }
 
         Transporte informacoesTransporte = new Transporte();
         informacoesTransporte.setNomeReino(reino.getNomeReino());
@@ -207,6 +238,7 @@ public class CalculosVogel {
         } else if (quantidadeTransportada == 0) {
             mapaReinos.remove(reino.getNomeReino());
         }
+
     }
 
     public ArrayList<Integer> getCustosRotalinhaUm() {
@@ -215,6 +247,17 @@ public class CalculosVogel {
 
     public ArrayList<Integer> getCustosRotalinhaDois() {
         return custosRotalinhaDois;
+    }
+
+    private void removeColunaDosCustos(Reino reino) {
+        int i = 0;
+        for (Integer custosRotalinhaUm1 : custosRotalinhaUm) {
+            if (custosRotalinhaUm1 == reino.getRotaFabricaUm() && custosRotalinhaDois.get(i) == reino.getRotaFabricaDois()) {
+                custosRotalinhaUm.remove(i);
+                custosRotalinhaDois.remove(i);
+            }
+            i++;
+        }
     }
 
 }

@@ -236,14 +236,14 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         CalculosVogel calculo = new CalculosVogel(mapaReinos);
         if (dummy > 2500) {
             this.calculaPenalidades(true);
-            calculo.transformaMapaEmArrayComDummyOferta(mapaReinos);
+            calculo.transformaMapaEmArrayComDummyOferta();
         }
         if (dummy < 2500) {
             this.calculaPenalidades(false);
-            calculo.transformaMapaEmArrayComDummyDemanda(mapaReinos);
+            calculo.transformaMapaEmArrayComDummyDemanda();
         } else {
             this.calculaPenalidades(false);
-            calculo.transformaMapaEmArraySemDummy(mapaReinos);
+            calculo.transformaMapaEmArraySemDummy();
         }
     }
 
