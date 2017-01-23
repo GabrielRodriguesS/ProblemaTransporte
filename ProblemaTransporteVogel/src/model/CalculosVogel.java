@@ -282,14 +282,14 @@ public class CalculosVogel {
     }
 
     private void removeColunaDosCustos(Reino reino) {
-        int j = 0;
+        int posicaoNoArray = 0;
         for (Iterator<Integer> i = custosRotalinhaUm.iterator(); i.hasNext();) {
             Integer next = i.next();
-            if (Objects.equals(i, reino.getRotaFabricaUm()) && Objects.equals(custosRotalinhaDois.get(j), reino.getRotaFabricaDois())) {
+            if (Objects.equals(i, reino.getRotaFabricaUm()) && Objects.equals(custosRotalinhaDois.get(posicaoNoArray), reino.getRotaFabricaDois())) {
                 i.remove();
-                custosRotalinhaDois.remove(j);
+                custosRotalinhaDois.remove(posicaoNoArray);
             }
-            j++;
+            posicaoNoArray++;
         }
     }
 
