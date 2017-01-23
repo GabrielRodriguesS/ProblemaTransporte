@@ -1,9 +1,10 @@
 package view;
 
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 import model.CalculosVogel;
 import model.Reino;
 
@@ -13,8 +14,8 @@ import model.Reino;
  */
 public class TelaInserirPesosRotas extends javax.swing.JFrame {
 
-    private static final Map<String, String> mapaCaminhoIcones = new HashMap<>();
-    private final Map<String, Reino> mapaReinos = new HashMap<>();
+    private static final Map<String, String> mapaCaminhoIcones = new LinkedHashMap<>();
+    private final Map<String, Reino> mapaReinos = new LinkedHashMap<>();
     private final Reino reinoUm;
     private final Reino reinoDois;
     private final Reino reinoTres;
@@ -234,13 +235,8 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
 
     private void chamadaMetodoVogel(Integer dummy) {
         CalculosVogel calculo = new CalculosVogel(mapaReinos);
-        if (dummy > 2500) {
-            this.calculaPenalidades(true);
-            calculo.transformaMapaEmArrayComDummyOferta();
-        }
-        if (dummy < 2500) {
-            this.calculaPenalidades(false);
-            calculo.transformaMapaEmArrayComDummyDemanda();
+        if (dummy > 2500 || dummy < 2500) {
+            JOptionPane.showMessageDialog(null, "Por favor, a demanda deve ser igual a oferta! Ajuste a demanda de alguns dos reinos");
         } else {
             this.calculaPenalidades(false);
             calculo.transformaMapaEmArraySemDummy();

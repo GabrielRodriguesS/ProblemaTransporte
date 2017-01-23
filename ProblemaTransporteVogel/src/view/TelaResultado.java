@@ -24,6 +24,20 @@ public class TelaResultado extends javax.swing.JFrame {
     public TelaResultado(ArrayList<Transporte> transportes) {
         initComponents();
         this.transportes = transportes;
+        Integer custoFinal = 0;
+        String mensagem = "";
+        for (Transporte transporte : transportes) {
+            mensagem = mensagem.concat(transporte.getNomeReino() 
+                    + ". Quantidade transportada e Penalidade: " 
+                    + transporte.getQuantidadeTransportada() 
+                    + ", " + transporte.getPenalidade() 
+                    + ". Custo Total: " 
+                    + (transporte.getPenalidade() * transporte.getQuantidadeTransportada()) + "<br>");
+            custoFinal += transporte.getPenalidade() * transporte.getQuantidadeTransportada();
+        }
+        mensagem = mensagem.concat("<br> Custo Final: " + custoFinal);
+        mensagemFinal.setText("<html>"+ mensagem+ "</html>");
+        this.setVisible(true);
     }
 
     /**
@@ -35,21 +49,46 @@ public class TelaResultado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        mensagemFinal = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mensagemFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mensagemFinalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(mensagemFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(mensagemFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mensagemFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mensagemFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mensagemFinalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -87,5 +126,7 @@ public class TelaResultado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField mensagemFinal;
     // End of variables declaration//GEN-END:variables
 }

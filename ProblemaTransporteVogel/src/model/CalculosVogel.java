@@ -6,11 +6,12 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import view.TelaResultado;
 
 /**
  *
@@ -63,7 +64,7 @@ public class CalculosVogel {
     }
 
     public void calculaVogel(boolean dummyOferta) {
-        if (!(ofertaFabricaUm == 0 && ofertaFabricaDois == 0) || !(custosRotalinhaUm.isEmpty() || custosRotalinhaUm.isEmpty())) {
+        if (!(ofertaFabricaUm == 0 && ofertaFabricaDois == 0) || !(custosRotalinhaUm.isEmpty() || custosRotalinhaDois.isEmpty())) {
             ArrayList<Integer> linhaComMaiorPenalidade = getMaiorPenalidadeDasLinhas();
             Reino reinoDaColunaComMaiorPenalidade = calculaMaiorPenalidadeColuna();
             Integer penalidadeLinha = calculaPenalidadePorLinha(linhaComMaiorPenalidade);
@@ -77,7 +78,7 @@ public class CalculosVogel {
 
             this.calculaVogel(dummyOferta);
         }
-
+        TelaResultado tela = new TelaResultado(transportes);
     }
 
     //retona o array com maior penalidade entre as linhas
@@ -140,14 +141,19 @@ public class CalculosVogel {
         Integer quantidadeTransportada;
         if (CalculosVogel.ofertaFabricaDois - reino.getDemanda() > 0) {
             quantidadeTransportada = reino.getDemanda();
+            CalculosVogel.ofertaFabricaDois -= reino.getDemanda();
             mapaReinos.remove(reino.getNomeReino());
+            this.custosRotalinhaDois.remove(reino.getRotaFabricaUm());
+            removeColunaDosCustos(reino);
         } else if (CalculosVogel.ofertaFabricaDois - reino.getDemanda() < 0) {
             quantidadeTransportada = CalculosVogel.ofertaFabricaDois;
+            CalculosVogel.ofertaFabricaDois = 0;
             this.custosRotalinhaDois.clear();
             reino.setDemanda(reino.getDemanda() - quantidadeTransportada);
             mapaReinos.replace(reino.getNomeReino(), reino);
         } else {
             quantidadeTransportada = CalculosVogel.ofertaFabricaDois;
+            CalculosVogel.ofertaFabricaDois = 0;
             mapaReinos.remove(reino.getNomeReino());
             this.custosRotalinhaDois.clear();
         }
@@ -158,7 +164,6 @@ public class CalculosVogel {
         informacoesTransporte.setQuantidadeTransportada(quantidadeTransportada);
         this.transportes.add(informacoesTransporte);
 
-        eliminaLinhaOuColuna(quantidadeTransportada, custosRotalinhaDois, reino);
     }
 
     public void calculosTransporteLinhaUm(Integer menorPenalidade) {
@@ -168,16 +173,19 @@ public class CalculosVogel {
 
         if (CalculosVogel.ofertaFabricaUm - reino.getDemanda() > 0) {
             quantidadeTransportada = reino.getDemanda();
+            CalculosVogel.ofertaFabricaUm -= reino.getDemanda();
             mapaReinos.remove(reino.getNomeReino());
             this.custosRotalinhaUm.remove(reino.getRotaFabricaUm());
             removeColunaDosCustos(reino);
         } else if (CalculosVogel.ofertaFabricaUm - reino.getDemanda() < 0) {
             quantidadeTransportada = CalculosVogel.ofertaFabricaUm;
+            CalculosVogel.ofertaFabricaUm = 0;
             this.custosRotalinhaUm.clear();
             reino.setDemanda(reino.getDemanda() - quantidadeTransportada);
             mapaReinos.replace(reino.getNomeReino(), reino);
         } else {
             quantidadeTransportada = CalculosVogel.ofertaFabricaUm;
+            CalculosVogel.ofertaFabricaUm = 0;
             mapaReinos.remove(reino.getNomeReino());
             this.custosRotalinhaUm.clear();
         }
@@ -188,7 +196,6 @@ public class CalculosVogel {
         informacoesTransporte.setQuantidadeTransportada(quantidadeTransportada);
         this.transportes.add(informacoesTransporte);
 
-        eliminaLinhaOuColuna(quantidadeTransportada, custosRotalinhaUm, reino);
     }
 
     //REFATORAR TIRANDO CODIGO DUPLICADO COM O METODO PARA LINHA! (SE DER TEMPO)
@@ -200,26 +207,61 @@ public class CalculosVogel {
         informacoesTransporte.setPenalidade(menorPenalidade);
 
         if (Objects.equals(menorPenalidade, reino.getRotaFabricaUm())) { //null safe mode
-            quantidadeTransportada = calculaQuantidadeTransportada(reino.getDemanda(), ofertaFabricaUm);
-            informacoesTransporte.setQuantidadeTransportada(quantidadeTransportada);
-            eliminaLinhaOuColuna(quantidadeTransportada, custosRotalinhaUm, reino);
+
+            if (CalculosVogel.ofertaFabricaUm - reino.getDemanda() > 0) {
+                quantidadeTransportada = reino.getDemanda();
+                CalculosVogel.ofertaFabricaUm -= reino.getDemanda();
+                mapaReinos.remove(reino.getNomeReino());
+                this.custosRotalinhaUm.remove(reino.getRotaFabricaUm());
+                removeColunaDosCustos(reino);
+            } else if (CalculosVogel.ofertaFabricaUm - reino.getDemanda() < 0) {
+                quantidadeTransportada = CalculosVogel.ofertaFabricaUm;
+                CalculosVogel.ofertaFabricaUm = 0;
+                this.custosRotalinhaUm.clear();
+                reino.setDemanda(reino.getDemanda() - quantidadeTransportada);
+                mapaReinos.replace(reino.getNomeReino(), reino);
+            } else {
+                quantidadeTransportada = CalculosVogel.ofertaFabricaUm;
+                CalculosVogel.ofertaFabricaUm = 0;
+                mapaReinos.remove(reino.getNomeReino());
+                this.custosRotalinhaUm.clear();
+            }
         } else {
-            quantidadeTransportada = calculaQuantidadeTransportada(reino.getDemanda(), ofertaFabricaDois);
-            informacoesTransporte.setQuantidadeTransportada(quantidadeTransportada);
-            eliminaLinhaOuColuna(quantidadeTransportada, custosRotalinhaDois, reino);
+            if (CalculosVogel.ofertaFabricaDois - reino.getDemanda() > 0) {
+                quantidadeTransportada = reino.getDemanda();
+                CalculosVogel.ofertaFabricaDois -= reino.getDemanda();
+                mapaReinos.remove(reino.getNomeReino());
+                this.custosRotalinhaDois.remove(reino.getRotaFabricaUm());
+                removeColunaDosCustos(reino);
+            } else if (CalculosVogel.ofertaFabricaDois - reino.getDemanda() < 0) {
+                quantidadeTransportada = CalculosVogel.ofertaFabricaDois;
+                CalculosVogel.ofertaFabricaDois = 0;
+                this.custosRotalinhaDois.clear();
+                reino.setDemanda(reino.getDemanda() - quantidadeTransportada);
+                mapaReinos.replace(reino.getNomeReino(), reino);
+            } else {
+                quantidadeTransportada = CalculosVogel.ofertaFabricaDois;
+                CalculosVogel.ofertaFabricaDois = 0;
+                mapaReinos.remove(reino.getNomeReino());
+                this.custosRotalinhaDois.clear();
+            }
         }
+
+        informacoesTransporte.setQuantidadeTransportada(quantidadeTransportada);
         this.transportes.add(informacoesTransporte);
     }
 
     public Reino buscarNoMapaOReino(Integer index) {
+        Reino reino = null;
         int i = 0;
         for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
+            reino = entrySet.getValue();
             if (i == index) {
-                return entrySet.getValue();
+                return reino;
             }
             i++;
         }
-        return null;
+        return reino;
     }
 
     private Integer calculaQuantidadeTransportada(Integer demanda, Integer oferta) {
@@ -231,16 +273,6 @@ public class CalculosVogel {
         }
     }
 
-    private void eliminaLinhaOuColuna(Integer quantidadeTransportada, ArrayList<Integer> linha, Reino reino) {
-        if (quantidadeTransportada < 0) {
-            reino.setDemanda(Math.abs(quantidadeTransportada));
-            linha.clear();
-        } else if (quantidadeTransportada == 0) {
-            mapaReinos.remove(reino.getNomeReino());
-        }
-
-    }
-
     public ArrayList<Integer> getCustosRotalinhaUm() {
         return custosRotalinhaUm;
     }
@@ -250,13 +282,14 @@ public class CalculosVogel {
     }
 
     private void removeColunaDosCustos(Reino reino) {
-        int i = 0;
-        for (Integer custosRotalinhaUm1 : custosRotalinhaUm) {
-            if (custosRotalinhaUm1 == reino.getRotaFabricaUm() && custosRotalinhaDois.get(i) == reino.getRotaFabricaDois()) {
-                custosRotalinhaUm.remove(i);
-                custosRotalinhaDois.remove(i);
+        int j = 0;
+        for (Iterator<Integer> i = custosRotalinhaUm.iterator(); i.hasNext();) {
+            Integer next = i.next();
+            if (Objects.equals(i, reino.getRotaFabricaUm()) && Objects.equals(custosRotalinhaDois.get(j), reino.getRotaFabricaDois())) {
+                i.remove();
+                custosRotalinhaDois.remove(j);
             }
-            i++;
+            j++;
         }
     }
 
