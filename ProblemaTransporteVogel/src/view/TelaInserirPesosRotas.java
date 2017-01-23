@@ -239,7 +239,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, a demanda deve ser igual a oferta! Ajuste a demanda de alguns dos reinos");
         } else {
             this.calculaPenalidades(false);
-            calculo.transformaMapaEmArraySemDummy();
+            calculo.transformaMapaEmArraySemDummy(mapaReinos);
         }
     }
 
