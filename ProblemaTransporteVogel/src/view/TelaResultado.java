@@ -15,28 +15,74 @@ import model.Transporte;
 public class TelaResultado extends javax.swing.JFrame {
 
     private final ArrayList<Transporte> transportes;
+    private final Integer estoqueFabricaUm;
+    private final Integer estoqueFabricaDois;
 
     /**
      * Creates new form TelaResultado
      *
      * @param transportes
+     * @param estoqueFabricaUm
+     * @param estoqueFabricaDois
      */
-    public TelaResultado(ArrayList<Transporte> transportes) {
+    public TelaResultado(ArrayList<Transporte> transportes, Integer estoqueFabricaUm, Integer estoqueFabricaDois) {
         initComponents();
         this.transportes = transportes;
+        this.estoqueFabricaDois = estoqueFabricaDois;
+        this.estoqueFabricaUm = estoqueFabricaUm;
         Integer custoFinal = 0;
-        String mensagem = "";
+        String mensagem = "<html>"
+                + "<head>\n"
+                + "<style>\n"
+                + "table {\n"
+                + "    font-family: arial, sans-serif;\n"
+                + "    border-collapse: collapse;\n"
+                + "    width: 100%;\n"
+                + "}\n"
+                + "\n"
+                + "td, th {\n"
+                + "    border: 1px solid #dddddd;\n"
+                + "    text-align: left;\n"
+                + "    padding: 8px;\n"
+                + "}\n"
+                + "\n"
+                + "tr:nth-child(even) {\n"
+                + "    background-color: #dddddd;\n"
+                + "}\n"
+                + "</style>\n"
+                + "</head>"
+                + "<body>"
+                + "<table>\n"
+                + "  <tr>\n"
+                + "    <th>Reino</th>\n"
+                + "    <th>Quantidade Transportada</th>\n"
+                + "    <th>Penalidade</th>\n"
+                + "    <th>Custo Total</th>\n"
+                + "  </tr>";
+
         for (Transporte transporte : transportes) {
-            mensagem = mensagem.concat(transporte.getNomeReino() 
-                    + ". Quantidade transportada e Penalidade: " 
-                    + transporte.getQuantidadeTransportada() 
-                    + ", " + transporte.getPenalidade() 
-                    + ". Custo Total: " 
-                    + (transporte.getPenalidade() * transporte.getQuantidadeTransportada()) + "<br>");
+            mensagem = mensagem.concat(
+                    "<tr>"
+                    + "<td>" + transporte.getNomeReino() + "</td>"
+                    + "<td>" + transporte.getQuantidadeTransportada() + "</td>"
+                    + "<td>" + transporte.getPenalidade() + "</td>"
+                    + "<td>" + (transporte.getPenalidade() * transporte.getQuantidadeTransportada()) + "</td>"
+                    + "</tr>"
+            );
             custoFinal += transporte.getPenalidade() * transporte.getQuantidadeTransportada();
         }
-        mensagem = mensagem.concat("<br> Custo Final: " + custoFinal);
-        mensagemFinal.setText("<html>"+ mensagem+ "</html>");
+        mensagem = mensagem.concat("<tr>\n"
+                + "  <th colspan=\"3\" >Custo Final</th>"
+                + "<td>" + custoFinal) + "</td>"
+                + "</tr>"
+                + "</table>"
+                + "</body>"
+                + "</html>";
+
+        this.mensagemFinal.setContentType("text/html");
+        this.mensagemFinal.setText(mensagem);
+        //this.mensagemFinal.setText(String.valueOf(mensagem));
+
         this.setVisible(true);
     }
 
@@ -50,45 +96,47 @@ public class TelaResultado extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        mensagemFinal = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        mensagemFinal = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        mensagemFinal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mensagemFinalActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Resultado Final");
+
+        jScrollPane1.setViewportView(mensagemFinal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mensagemFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(223, 223, 223)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel2)
-                .addContainerGap(233, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mensagemFinal)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mensagemFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mensagemFinalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mensagemFinalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,13 +168,15 @@ public class TelaResultado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaResultado(new ArrayList()).setVisible(true);
+                new TelaResultado(new ArrayList(), 0, 0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField mensagemFinal;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextPane mensagemFinal;
     // End of variables declaration//GEN-END:variables
 }

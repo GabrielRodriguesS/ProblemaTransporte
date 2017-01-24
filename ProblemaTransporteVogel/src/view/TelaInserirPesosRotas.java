@@ -238,22 +238,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         if (dummy > 2500 || dummy < 2500) {
             JOptionPane.showMessageDialog(null, "Por favor, a demanda deve ser igual a oferta! Ajuste a demanda de alguns dos reinos");
         } else {
-            this.calculaPenalidades(false);
-            calculo.transformaMapaEmArraySemDummy(mapaReinos);
-        }
-    }
-
-    private void calculaPenalidades(boolean dummy) {
-        if (!dummy) {
-            for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
-                Reino value = entrySet.getValue();
-                value.setPenalidade();
-            }
-        } else {
-            for (Map.Entry<String, Reino> entrySet : mapaReinos.entrySet()) {
-                Reino value = entrySet.getValue();
-                value.setPenalidadeDummy();
-            }
+            calculo.transformaMapaEmArray();
         }
     }
 
@@ -261,6 +246,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         reino.setRotaFabricaUm(Integer.parseInt(this.rotaFabricaUm.getText()));
         reino.setRotaFabricaDois(Integer.parseInt(this.rotaFabricaDois.getText()));
         reino.setDemanda(Integer.parseInt(this.demandaReino.getText()));
+        reino.setPenalidade();
     }
 
     private void limpaInputs() {

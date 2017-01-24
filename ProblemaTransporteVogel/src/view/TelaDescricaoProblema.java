@@ -34,7 +34,7 @@ public class TelaDescricaoProblema extends javax.swing.JFrame {
         imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/todasRotas.jpg"))); // NOI18N
 
         descricaoProblema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        descricaoProblema.setText("<html>\n <font size=\"6\"><p align=\"center\"><b>- Problema do Transporte -  </b></p></font size>\n<font size=\"6\"> <p align=\"center\"><b>Método de Aproximação de Vogel</b></p></font size>\n  </br>  <font size=\"5\"> <br>\n A forja de armaduras \"Kovir&Poviss\" possui uma instalação matriz e uma filial. A primeira, F1, tem capacidade de produção total de\n <b>1800 </b> armaduras. Enquanto a filial, F2, um pouco menor, pode fornecer \n <b>700 </b> armaduras. </br>  \n <br> <br> Kovir&Poviss distribui suas finais peças por 5 reinos da região:\n <b>R1, R2, R3, R4, e R5 </b>. A demanda de armaduras para os 5 reinos é fixa e distribuída conforme indicado abaixo, respectivamente:\n <b> 890, 105, 600, 405, 500</b>. </br>  \n <br><br>  Os cavalos e embarcações disponíveis para fazer o transporte das mercadorias atendem a todas as rotas,\n entretanto, cada uma possui um custo variado. O custo de transporte deve ser fornecido. \n </br><br> <br> O objetivo é atender a todos os reinos pelo menor custo de viagem. </br>\n </html>");
+        descricaoProblema.setText("<html>\n\t\t<p align =\"center\"> <font size=\"6\">- Problema do Transporte - </font> </p>\n\t\t<p align =\"center\"><font size=\"6\">Método de Aproximação de Vogel </font></p>\n\t\t<br><br><font size=\"5\"> \n\t\t A forja de armaduras \"Kovir&Poviss\" possui uma instalação matriz e uma filial. A primeira, F1, tem capacidade de produção total de\n\t\t <b>1800 </b> armaduras. Enquanto a filial, F2, um pouco menor, pode fornecer \n\t\t <b>700 </b> armaduras. </br>  \n\t\t <br> <p> Kovir&Poviss distribui suas peças por 5 reinos da região:\n\t\t <b>R1, R2, R3, R4, e R5 </b>. A demanda de armaduras para os 5 reinos é váriavel e fornecida pelos clientes \n\t\t de cada reino mensalmente. <p>  \n\t\t <br><p>Os cavalos e embarcações disponíveis para fazer o transporte das mercadorias atendem a todas as rotas,\n\t\t entretanto, cada uma possui um custo variado. O custo de transporte deve ser fornecido. \n\t\t </p><br> <p> O objetivo é atender a todos os reinos pelo menor custo de viagem. </p></font>\n\t </html>");
         descricaoProblema.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 102, 102)));
         descricaoProblema.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         descricaoProblema.setMaximumSize(new java.awt.Dimension(650, 650));
@@ -61,29 +61,32 @@ public class TelaDescricaoProblema extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(descricaoProblema, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(confirmar)
-                .addGap(235, 235, 235))
+                .addComponent(descricaoProblema, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 19, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmar)
+                        .addGap(140, 140, 140))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(descricaoProblema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmar)
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imagem, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(confirmar)
+                            .addComponent(jLabel3)))
+                    .addComponent(descricaoProblema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         pack();

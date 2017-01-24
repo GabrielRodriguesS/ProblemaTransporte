@@ -25,6 +25,7 @@ public class Reino implements Comparable<Reino> {
         this.penalidade = penalidade;
         this.quantidadeTransportada = quantidadeTransportada;
         this.nomeReino = nomeReino;
+        this.setPenalidade();
     }
 
     public Reino() {
@@ -50,19 +51,11 @@ public class Reino implements Comparable<Reino> {
         this.quantidadeTransportada = quantidadeTransportada;
     }
 
-    public void setPenalidade() {
+    public final void setPenalidade() {
         if (this.getRotaFabricaUm() > this.getRotaFabricaDois()) {
             this.penalidade = this.getRotaFabricaUm() - this.getRotaFabricaDois();
         } else {
             this.penalidade = this.getRotaFabricaDois() - this.getRotaFabricaUm();
-        }
-    }
-
-    public void setPenalidadeDummy() {
-        if (this.getRotaFabricaUm() > this.getRotaFabricaDois()) {
-            this.penalidade = this.rotaFabricaDois;
-        } else {
-            this.penalidade = this.rotaFabricaUm;
         }
     }
 
