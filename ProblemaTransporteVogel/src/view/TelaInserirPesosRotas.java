@@ -21,6 +21,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
     private final Reino reinoTres;
     private final Reino reinoQuatro;
     private final Reino reinoCinco;
+    Integer oferta = 2500;
 
     static {
         mapaCaminhoIcones.put("Reino 1", "/resources/R1rota.jpg");
@@ -81,6 +82,8 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         calcular = new javax.swing.JButton();
         demandaReino = new javax.swing.JTextField();
         labelDemanda = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        ofertaRestante = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,6 +118,18 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
             }
         });
 
+        rotaFabricaDois.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rotaFabricaDoisKeyTyped(evt);
+            }
+        });
+
+        rotaFabricaUm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rotaFabricaUmKeyTyped(evt);
+            }
+        });
+
         lembrete.setText("<html> <p>*Lembre-se não faz sentido</p> <p>encomendar meia armadura,</p><p>logo a demanda é um inteiro</p>  </html>");
 
         calcular.setText("Calcular");
@@ -129,46 +144,70 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
             }
         });
 
+        demandaReino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                demandaReinoFocusLost(evt);
+            }
+        });
+        demandaReino.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                demandaReinoKeyTyped(evt);
+            }
+        });
+
         labelDemanda.setText("Demanda do Reino:");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Oferta Restante:");
+
+        ofertaRestante.setText("2500");
+        ofertaRestante.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imagem)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDestino, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(destino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelFabrica2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(rotaFabricaUm, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(rotaFabricaDois, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cadastroValorRota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(demandaReino, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(lembrete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(calcular, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDemanda, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
                 .addGap(140, 140, 140))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(imagem)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(destino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFabrica2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(rotaFabricaUm, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(rotaFabricaDois, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cadastroValorRota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(demandaReino, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(lembrete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(calcular, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDemanda, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDestino, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(ofertaRestante, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(titulo)
                         .addGap(18, 18, 18)
                         .addComponent(imagem))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(90, 90, 90)
                         .addComponent(labelDestino)
                         .addGap(13, 13, 13)
                         .addComponent(destino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,7 +229,11 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
                         .addComponent(lembrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(calcular)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(ofertaRestante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -210,6 +253,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         setPesosRotas(reinoSelecionado);
         this.destino.requestFocus();
         this.limpaInputs();
+
     }//GEN-LAST:event_cadastroValorRotaActionPerformed
 
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
@@ -232,6 +276,32 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
             calcular.doClick();
         }
     }//GEN-LAST:event_calcularKeyPressed
+
+    private void rotaFabricaUmKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rotaFabricaUmKeyTyped
+        String caracteres = "0987654321.";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_rotaFabricaUmKeyTyped
+
+    private void rotaFabricaDoisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rotaFabricaDoisKeyTyped
+        String caracteres = "0987654321.";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_rotaFabricaDoisKeyTyped
+
+    private void demandaReinoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_demandaReinoKeyTyped
+        String caracteres = "0987654321.";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_demandaReinoKeyTyped
+
+    private void demandaReinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_demandaReinoFocusLost
+        oferta = oferta - Integer.parseInt(demandaReino.getText());
+        ofertaRestante.setText(Integer.toString(oferta));
+    }//GEN-LAST:event_demandaReinoFocusLost
 
     private void chamadaMetodoVogel(Integer dummy) {
         CalculosVogel calculo = new CalculosVogel(mapaReinos);
@@ -298,11 +368,13 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
     private javax.swing.JTextField demandaReino;
     private javax.swing.JComboBox destino;
     private javax.swing.JLabel imagem;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelDemanda;
     private javax.swing.JLabel labelDestino;
     private javax.swing.JLabel labelFabrica2;
     private javax.swing.JLabel labelValor;
     private javax.swing.JLabel lembrete;
+    private javax.swing.JTextField ofertaRestante;
     private javax.swing.JTextField rotaFabricaDois;
     private javax.swing.JTextField rotaFabricaUm;
     private javax.swing.JLabel titulo;
