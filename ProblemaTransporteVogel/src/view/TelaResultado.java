@@ -105,6 +105,7 @@ public class TelaResultado extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Resultado Final");
 
+        mensagemFinal.setEditable(false);
         jScrollPane1.setViewportView(mensagemFinal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
