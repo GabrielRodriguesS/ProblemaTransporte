@@ -83,7 +83,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         demandaReino = new javax.swing.JTextField();
         labelDemanda = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        ofertaRestante = new javax.swing.JTextField();
+        ofertaRestante = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,11 +144,6 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
             }
         });
 
-        demandaReino.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                demandaReinoFocusLost(evt);
-            }
-        });
         demandaReino.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 demandaReinoKeyTyped(evt);
@@ -160,8 +155,8 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Oferta Restante:");
 
+        ofertaRestante.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ofertaRestante.setText("2500");
-        ofertaRestante.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,8 +188,8 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(ofertaRestante, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ofertaRestante, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -229,16 +224,20 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
                         .addComponent(lembrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(calcular)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(ofertaRestante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ofertaRestante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void calculaOfertaRestante(){
+        oferta = oferta - Integer.parseInt(demandaReino.getText());
+        ofertaRestante.setText(Integer.toString(oferta));
+    }
     private void destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinoActionPerformed
         String nomeReino = (String) this.destino.getSelectedItem();
 
@@ -247,6 +246,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
     }//GEN-LAST:event_destinoActionPerformed
 
     private void cadastroValorRotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroValorRotaActionPerformed
+        calculaOfertaRestante();
         String nomeReino = (String) this.destino.getSelectedItem();
         Reino reinoSelecionado = getReino(nomeReino);
         reinoSelecionado.setNomeReino(nomeReino);
@@ -272,36 +272,32 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroValorRotaKeyPressed
 
     private void calcularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calcularKeyPressed
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             calcular.doClick();
         }
     }//GEN-LAST:event_calcularKeyPressed
 
     private void rotaFabricaUmKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rotaFabricaUmKeyTyped
-        String caracteres = "0987654321.";
+        String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }//GEN-LAST:event_rotaFabricaUmKeyTyped
 
     private void rotaFabricaDoisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rotaFabricaDoisKeyTyped
-        String caracteres = "0987654321.";
+        String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }//GEN-LAST:event_rotaFabricaDoisKeyTyped
 
     private void demandaReinoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_demandaReinoKeyTyped
-        String caracteres = "0987654321.";
+        String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }//GEN-LAST:event_demandaReinoKeyTyped
-
-    private void demandaReinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_demandaReinoFocusLost
-        oferta = oferta - Integer.parseInt(demandaReino.getText());
-        ofertaRestante.setText(Integer.toString(oferta));
-    }//GEN-LAST:event_demandaReinoFocusLost
 
     private void chamadaMetodoVogel(Integer dummy) {
         CalculosVogel calculo = new CalculosVogel(mapaReinos);
@@ -374,7 +370,7 @@ public class TelaInserirPesosRotas extends javax.swing.JFrame {
     private javax.swing.JLabel labelFabrica2;
     private javax.swing.JLabel labelValor;
     private javax.swing.JLabel lembrete;
-    private javax.swing.JTextField ofertaRestante;
+    private javax.swing.JLabel ofertaRestante;
     private javax.swing.JTextField rotaFabricaDois;
     private javax.swing.JTextField rotaFabricaUm;
     private javax.swing.JLabel titulo;
